@@ -1,7 +1,7 @@
 from typing import Union
 
-#Deafult
-SIZE = (1106,750)
+# Deafult
+SIZE = (1106, 750)
 TITLE = 'AntiAFK'
 
 COLORS = {
@@ -11,15 +11,15 @@ COLORS = {
     'BG3': '#145d87',
     'BG4': '#228399',
     'FG0': '#31b0b0',
-    'FG1': '#46cfb3', #TXT0
-    'FG2': '#73f0c6', #TXT1
+    'FG1': '#46cfb3',  # TXT0
+    'FG2': '#73f0c6',  # TXT1
     'FG3': '#abffd1',
     'FG4': '#d9ffe2'
 }
 
 FONT = 'Arial'
 
-#Top segment
+# Top segment
 TOP = {
     'BG': 'transparent',
 
@@ -43,7 +43,7 @@ TOP = {
     },
 
     'ONOFFBUTTON': {
-        'IMGSIZE': (60,60),
+        'IMGSIZE': (60, 60),
         'CORNERRADIUS': 30,
         'TXTCOL': COLORS['FG2'],
 
@@ -70,25 +70,25 @@ TOP = {
         'BG': 'transparent',
         'TXTCOL': COLORS['FG1'],
 
-        'SETTING':{
+        'SETTING': {
             'FONT': (FONT, 40),
             'PADX': 15
         },
 
-        'ONOFFKEY':{
+        'ONOFFKEY': {
             'FONT': (FONT, 40),
             'PADX': 0
         },
     }
 }
 
-#Middle segment
+# Middle segment
 MID = {
     'BG': 'transparent',
 
     'OPTION': {
         'CORNERRADIUS': 30,
-        'IMGSIZE': (90,90),
+        'IMGSIZE': (90, 90),
 
         'OFF': {
             'BG': COLORS['BG3'],
@@ -102,18 +102,18 @@ MID = {
     }
 }
 
-#Bottom segment
+# Bottom segment
 BOTTOM = {
     'BG': 'transparent',
     'PADY': 5,
     'SWITCHER': {
         'BG': 'transparent',
-        'LABEL':{
+        'LABEL': {
             'BG': COLORS['BG1'],
             'TXTCOL': COLORS['FG1'],
             'CORNERRADIUS': 10,
         },
-        'BUTTON':{
+        'BUTTON': {
             'BG': COLORS['BG2'],
             'HOVER': COLORS['BG1'],
             'TXTCOL': COLORS['FG1'],
@@ -139,10 +139,11 @@ BOTTOM = {
     }
 }
 
+
 class Variables():
     def __init__(self):
         pass
-    
+
     def Deafult(self, name: str) -> Union[str, int, tuple]:
         match name:
             case 'TIMES':
@@ -175,77 +176,81 @@ class Variables():
                 return 7
             case 'LOOKINGFORKEYS':
                 return 'f7'
-    
+
     def Explanations(self, name: str) -> str:
         match name:
-            case 'TIMES':          
+            case 'TIMES':
                 return 'How many times events happen in one loop iteration'
-            case 'TIME':           
+            case 'TIME':
                 return 'Time of singular event'
-            case 'TIMECOOLDOWN':   
+            case 'TIMECOOLDOWN':
                 return 'Time between singular events'
-            case 'RESETTIME':      
+            case 'RESETTIME':
                 return 'Time between loop iterations'
-            case 'RESETTIMERAND':  
+            case 'RESETTIMERAND':
                 return 'Randomness of time between loop iterations (Range around ResetTime)'
-            case 'FPS':            
+            case 'FPS':
                 return 'In how many FPS mouse will move'
-            case 'RANGE':          
+            case 'RANGE':
                 return 'Distance of singular mouse move'
-            case 'RANDOMNESS':     
+            case 'RANDOMNESS':
                 return 'Randomness of distance that mouse cover in singular move (Range around Range)'
-            case 'MOUSEMODE':      
-                return '(ruch,przycisk) (0-nic 1-ruch, 0-nic 1-LMB 2-RMB 3-BMB)' #Later
-            case 'CLICKNUMBER':    
+            case 'MOUSEMODE':
+                # Later
+                return '(ruch,przycisk) (0-nic 1-ruch, 0-nic 1-LMB 2-RMB 3-BMB)'
+            case 'CLICKNUMBER':
                 return 'How many clicks per event'
-            case 'COOLDOWN':       
+            case 'COOLDOWN':
                 return 'Time between interactions'
-            case 'KEYBOARDIF':     
-                return 'czy włączać klawiature' #Later
-            case 'KEYS':           
+            case 'KEYBOARDIF':
+                return 'czy włączać klawiature'  # Later
+            case 'KEYS':
                 return 'Keys that have a chance to be clicked per event'
             case 'INITIALCOOLDOWN':
                 return 'Initial cooldown (when turining ON whole script)'
-            case 'LOOKINGFORKEYS': 
-                return 'przycisk ON/OFF' #Later
+            case 'LOOKINGFORKEYS':
+                return 'przycisk ON/OFF'  # Later
 
     def Requirements(self, name: str) -> str:
         # Z = "\u2124"
         # N = "\u2115"
         # R = "\u211D"
-        #Ele. of = "\u2208"
+        # Ele. of = "\u2208"
         match name:
-            case 'TIMES':          
+            case 'TIMES':
                 return 'x \u2208 \u2115+'
-            case 'TIME':           
+            case 'TIME':
                 return 'x \u2208 \u211D (ms)'
-            case 'TIMECOOLDOWN':   
+            case 'TIMECOOLDOWN':
                 return 'x \u2208 \u211D (ms)'
-            case 'RESETTIME':      
+            case 'RESETTIME':
                 return 'x \u2208 \u211D (s)'
-            case 'RESETTIMERAND':  
+            case 'RESETTIMERAND':
                 return 'x \u2208 \u2115 (s) (0 also)'
-            case 'FPS':            
+            case 'FPS':
                 return 'x \u2208 \u2115+'
-            case 'RANGE':          
+            case 'RANGE':
                 return 'x \u2208 \u2115 (px) (0 also)'
-            case 'RANDOMNESS':     
+            case 'RANDOMNESS':
                 return 'x \u2208 \u2115+ (px)'
-            case 'MOUSEMODE':      
-                return '(ruch,przycisk) (0-nic 1-ruch, 0-nic 1-LMB 2-RMB 3-BMB)' #Later
-            case 'CLICKNUMBER':    
+            case 'MOUSEMODE':
+                # Later
+                return '(ruch,przycisk) (0-nic 1-ruch, 0-nic 1-LMB 2-RMB 3-BMB)'
+            case 'CLICKNUMBER':
                 return 'x \u2208 \u2115 (0 also)'
-            case 'COOLDOWN':       
+            case 'COOLDOWN':
                 return 'x \u2208 \u211D (px)'
-            case 'KEYBOARDIF':     
-                return 'czy włączać klawiature' #Later
-            case 'KEYS':           
-                return 'Button "+" Button' #Later
+            case 'KEYBOARDIF':
+                return 'czy włączać klawiature'  # Later
+            case 'KEYS':
+                return 'Button "+" Button'  # Later
             case 'INITIALCOOLDOWN':
                 return 'x \u2208 \u211D (s)'
-            case 'LOOKINGFORKEYS': 
-                return 'przycisk ON/OFF' #Later
-#Others
+            case 'LOOKINGFORKEYS':
+                return 'przycisk ON/OFF'  # Later
+
+
+# Others
 OTHERS = {
     'CHANGEKEY': {
         'BG': 'black',
@@ -256,7 +261,7 @@ OTHERS = {
 }
 
 
-#Img
+# Img
 IMAGES = {
     'KEYBOARD0': 'Img/keyboard0.png',
     'KEYBOARD1': 'Img/keyboard1.png',
@@ -274,7 +279,7 @@ IMAGES = {
 
 if __name__ == '__main__':
     v = Variables()
-    x = ['TIMES', 'TIME', 'TIMECOOLDOWN', 'RESETTIME', 'RESETTIMERAND', 'FPS', 'RANGE', 'RANDOMNESS', 
-        'MOUSEMODE', 'CLICKNUMBER', 'COOLDOWN', 'KEYBOARDIF', 'KEYS', 'INITIALCOOLDOWN', 'LOOKINGFORKEYS']
+    x = ['TIMES', 'TIME', 'TIMECOOLDOWN', 'RESETTIME', 'RESETTIMERAND', 'FPS', 'RANGE', 'RANDOMNESS',
+         'MOUSEMODE', 'CLICKNUMBER', 'COOLDOWN', 'KEYBOARDIF', 'KEYS', 'INITIALCOOLDOWN', 'LOOKINGFORKEYS']
     for i in x:
         print(f'{i} = {v.Explanations(i)} - {v.Requirements(i)}')

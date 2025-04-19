@@ -12,10 +12,11 @@ ButtonMouse = mouse.Button
 
 Key = keyboard.Key
 
-#variables
+# variables
 STATE = False
 ACTIVELOOP = False
 ACTIVECHANGER = False
+
 
 class Movement(FileRead):
     def __init__(self):
@@ -29,7 +30,7 @@ class Movement(FileRead):
             self.KeyboardPress()
 
     def randomMouse(self):
-        if(self.MOUSEMODE[0] == 1):
+        if (self.MOUSEMODE[0] == 1):
             randx = random.randint(1, self.RANDOMNESS)
             randy = random.randint(1, self.RANDOMNESS)
 
@@ -41,19 +42,19 @@ class Movement(FileRead):
 
             for __ in range(self.FPS):
                 Mouse.move(steps_x, steps_y)
-                time.sleep(self.TIME/ self.FPS / 1000 )
+                time.sleep(self.TIME / self.FPS / 1000)
 
-        if(self.MOUSEMODE[1] == 1):
+        if (self.MOUSEMODE[1] == 1):
             Mouse.click(ButtonMouse.left, self.CLICKNUMBER)
-        if(self.MOUSEMODE[1] == 2):
+        if (self.MOUSEMODE[1] == 2):
             Mouse.click(ButtonMouse.right, self.CLICKNUMBER)
-        if(self.MOUSEMODE[1] == 3):
+        if (self.MOUSEMODE[1] == 3):
             for __ in range(self.CLICKNUMBER):
                 Mouse.press(ButtonMouse.left)
                 Mouse.press(ButtonMouse.right)
                 Mouse.release(ButtonMouse.left)
                 Mouse.release(ButtonMouse.right)
-        time.sleep(self.TIMECOOLDOWN/ 1000)
+        time.sleep(self.TIMECOOLDOWN / 1000)
 
     def KeyboardPress(self):
         ks = Keyswitch()
@@ -67,7 +68,8 @@ class Movement(FileRead):
                 keyboard.Controller().press(self.button)
                 time.sleep(self.TIME/1000)
                 keyboard.Controller().release(self.button)
-                
+
+
 class MainLogic():
     def __init__(self) -> None:
         pass
@@ -78,24 +80,25 @@ class MainLogic():
     def ChangeState(self) -> None:
         global STATE
         STATE = not STATE
-        if(STATE):
+        if (STATE):
             self.INFLoop()
-    
+
     def INFLoop(self) -> None:
         move = Movement()
 
         def Loop():
             time.sleep(move.INITIALCOOLDOWN)
-            while(STATE):
+            while (STATE):
                 move.Loop()
-                time.sleep(move.RESETTIME + random.randint(move.RESETTIMERAND*-1, move.RESETTIMERAND))
+                time.sleep(
+                    move.RESETTIME + random.randint(move.RESETTIMERAND*-1, move.RESETTIMERAND))
             global ACTIVELOOP
             ACTIVELOOP = False
-        
+
         if not ACTIVELOOP:
-            t = threading.Thread(target = Loop)
+            t = threading.Thread(target=Loop)
             t.start()
-    
+
     def INFLoopKeyCheck(self) -> None:
         activeKeys = set()
         ks = Keyswitch()
@@ -104,30 +107,30 @@ class MainLogic():
             LOOKINGFORKEYS = FileRead().LOOKINGFORKEYS
             if ACTIVECHANGER:
                 return
-            if(not type(key) == keyboard.KeyCode):
+            if (not type(key) == keyboard.KeyCode):
                 activeKeys.add(ks.Delate_L_R(key))
             else:
                 activeKeys.add(ks.SpecialShift(key))
 
             if activeKeys == LOOKINGFORKEYS:
                 self.ChangeState()
-            
+
         def on_key_release(key):
             if ACTIVECHANGER:
                 return
-            if(not type(key) == keyboard.KeyCode):
+            if (not type(key) == keyboard.KeyCode):
                 activeKeys.discard(ks.Delate_L_R(key))
             else:
                 activeKeys.discard(ks.SpecialShift(key))
                 activeKeys.discard(ks.SpecialShift(key))
-        
+
         listener = keyboard.Listener(
-            on_press=on_key_press, 
+            on_press=on_key_press,
             on_release=on_key_release,
-            )
+        )
 
         listener.start()
-    
+
     def ChangeKey(self, destroy) -> None:
         global ACTIVECHANGER
         ACTIVECHANGER = True
@@ -144,7 +147,7 @@ class MainLogic():
                 listener.stop()
                 destroy()
                 return
-            if(not type(key) == keyboard.KeyCode):
+            if (not type(key) == keyboard.KeyCode):
                 activeKeys.add(ks.Delate_L_R(key))
                 setKeys.add(ks.Delate_L_R(key))
             else:
@@ -152,7 +155,7 @@ class MainLogic():
                 setKeys.add(key)
 
         def on_key_release(key):
-            if(not type(key) == keyboard.KeyCode):
+            if (not type(key) == keyboard.KeyCode):
                 activeKeys.discard(ks.Delate_L_R(key))
             else:
                 activeKeys.discard(key)
@@ -160,17 +163,18 @@ class MainLogic():
             if not activeKeys:
                 global ACTIVECHANGER
 
-                FileWrite().Write(LOOKINGFORKEYS = setKeys)
+                FileWrite().Write(LOOKINGFORKEYS=setKeys)
                 ACTIVECHANGER = False
 
                 destroy()
                 listener.stop()
-        
+
         listener = keyboard.Listener(
-            on_press=on_key_press, 
+            on_press=on_key_press,
             on_release=on_key_release)
-        
+
         listener.start()
+
 
 if __name__ == '__main__':
     # m = MainLogic()
