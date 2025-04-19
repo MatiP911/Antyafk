@@ -1,1 +1,3 @@
 __pycache__/
+.venv
+variables.txt
